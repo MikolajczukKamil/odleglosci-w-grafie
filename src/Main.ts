@@ -1,84 +1,107 @@
-import { DataSet, Network, Options, Data, Edge, Node } from 'vis'
-import './style.css'
+import { DataSet, Network, Options, Data, Edge, Node } from "vis";
+import "./style.css";
 
-export default function Main({ current: container }: React.RefObject<HTMLDivElement>) {
-  if (container === null) return
+type RequiredKeys<T, K extends keyof T> = Exclude<T, K> & Required<Pick<T, K>>;
 
-  console.log(container)
+const a = (el: Options) => el as RequiredKeys<Options, keyof typeof el>;
+const b = <T extends Object>(el: T) => el as RequiredKeys<T, keyof typeof el>;
 
-  let options: Options = {
+export default function Main({
+  current: container,
+}: React.RefObject<HTMLDivElement>) {
+  if (container === null) return;
+
+  console.log(container);
+
+  const options = b<Options>({
     nodes: {
-      shape: 'dot',
+      shape: "dot",
       size: 30,
       font: {
         size: 32,
-        color: '#9c9c9c',
+        color: "#9c9c9c",
       },
       borderWidth: 2,
     },
     edges: {
       width: 2,
-      arrows: {
-        to: true,
-      },
+      // arrows: {
+      //   to: true,
+      // },
       length: 256,
       font: {
         size: 24,
-        face: '"Roboto", "Helvetica", "Arial", sans-serif'
-      }
+        face: '"Roboto", "Helvetica", "Arial", sans-serif',
+      },
     },
     groups: {
       c1: {
-        color: '#E91E63',
+        color: "#111188",
       },
     },
     autoResize: true,
-    height: '512px',
-    width: '100vw',
-    locale: 'pl'
-  }
+    height: "900px",
+    width: "100vw",
+    locale: "pl",
+  });
 
   let nodes: Node[] = [
-    { id: 0, group: 'c1', label: '8' },
-    { id: 1, group: 'c1', label: '12' },
-  ]
+    { id: 0, group: "c1", label: "1" },
+    { id: 1, group: "c1", label: "2" },
+    { id: 2, group: "c1", label: "3" },
+    { id: 3, group: "c1", label: "4" },
+    { id: 4, group: "c1", label: "5" },
+    { id: 5, group: "c1", label: "6" },
+  ];
 
   let edges: Edge[] = [
+ 
     {
       from: 1,
-      to: 0,
-      id: 'e-1',
-      label: '1',
-      title: 'E 1',
-      width: options.edges?.width * 2
+      to: 2
+      , label: ""
     },
     {
-      from: 0,
-      to: 1,
-      id: 'e-2',
-      label: '2',
-      title: 'E 2',
-
+      from: 2,
+      to: 3
+      , label: ""
     },
-  ]
+
+    
+    {
+      from: 4,
+      to: 1
+      , label: ""
+    },
+    {
+      from: 4,
+      to: 3
+      , label: ""
+    },
+    {
+      from: 5,
+      to: 0
+      , label: ""
+    },
+  ];
 
   let data: Data = {
     nodes: new DataSet(nodes),
     edges: new DataSet(edges),
-  }
+  };
 
   // @ts-ignore
-  window.a = (x) => edges[0].label = x
+  window.a = (x) => (edges[0].label = x);
   // @ts-ignore
-  window.b = () => network.editNode()
+  window.b = () => network.editNode();
 
-  const network = new Network(container, data, options)
+  const network = new Network(container, data, options);
 
-  network.on('oncontext', (event: any) => {
-    event.event.preventDefault()
+  network.on("oncontext", (event: any) => {
+    event.event.preventDefault();
 
-    const id = network.getNodeAt(event.pointer.DOM)
+    const id = network.getNodeAt(event.pointer.DOM);
 
-    console.log(id)
-  })
+    console.log(id);
+  });
 }
