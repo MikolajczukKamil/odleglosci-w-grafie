@@ -1,18 +1,17 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
-
-import Main from './Main'
+import Header from './Header'
+import Navigation from './Navigation'
+import { GraphContextProvider } from './GraphContext'
 
 function App() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    Main(ref)
-  }, [ref])
-
   return (
     <CssBaseline>
-      <div ref={ref}></div>
+      <GraphContextProvider>
+        <Header />
+
+        <Navigation />
+      </GraphContextProvider>
     </CssBaseline>
   )
 }
