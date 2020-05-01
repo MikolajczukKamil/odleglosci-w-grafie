@@ -1,21 +1,41 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 
+const useStyles = makeStyles({
+  root: {
+    flex: 1,
+    display: 'flex',
+  },
+})
+
 interface TabPanelProps {
-  children?: React.ReactNode
   index: number
   value: number
+  fullContent?: boolean
+  children?: React.ReactNode
 }
 
 /**
  * Displays TabPanel Content if value is equals index
  */
-export default function TabPanel({ children, value, index, ...other }: TabPanelProps) {
-  const visable = value === index
+const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
+  ({ children, value, index, fullContent = false }: TabPanelProps, ref) => {
+    const classess = useStyles()
 
-  return (
-    <div role='tabpanel' hidden={!visable} {...other}>
-      {visable ? <Box p={3}>{children}</Box> : null}
-    </div>
-  )
-}
+    const visable = value === index
+
+    return (
+      <div
+        ref={ref}
+        role='tabpanel'
+        hidden={!visable}
+        className={visable ? classess.root : undefined}
+      >
+        {visable ? fullContent ? children : <Box p={3}>{children}</Box> : null}
+      </div>
+    )
+  }
+)
+
+export default TabPanel

@@ -1,4 +1,4 @@
-export default function CheckValue(text: string) {
+export default function CheckGraphMatrixStringReprezentation(text: string) {
   if (text.length === 0) {
     return 'Macierz musi zawierać min 1 wierzchołek'
   }

@@ -8,43 +8,43 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
 import Topic from './Topic'
-import CheckValue from './CheckValue'
 import parseGraph from './parseGraph'
-import defaultGraphs from './defaultGraphs'
+import aviableGraphs, { addNewDefaultGraph } from './defaultGraphs'
 import GraphToString from './GraphToString'
+import CheckGraphMatrixStringReprezentation from './CheckGraphMatrixStringReprezentation'
 
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
     width: '100vw',
     maxWidth: theme.breakpoints.values.md,
-    margin: `${theme.spacing(4)}px auto`
+    margin: `${theme.spacing(4)}px auto`,
   },
   formControl: {
     marginTop: theme.spacing(2),
-    minWidth: 512
+    minWidth: 512,
   },
   select: {
     '&:focus': {
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    },
   },
   buttonList: {
     marginLeft: theme.spacing(4),
     paddingRight: theme.spacing(5),
-    paddingLeft: theme.spacing(5)
+    paddingLeft: theme.spacing(5),
   },
   buttonText: {
     marginTop: theme.spacing(4),
     paddingRight: theme.spacing(5),
-    paddingLeft: theme.spacing(5)
+    paddingLeft: theme.spacing(5),
   },
   textField: {
     width: '100%',
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   textArea: {
-    minHeight: 200
-  }
+    minHeight: 200,
+  },
 }))
 
 interface IPropsNewGraph {
@@ -54,9 +54,7 @@ interface IPropsNewGraph {
 export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
   const classes = useStyles()
   const [selectedDefaultGraph, setSelectedDefaultGraph] = useState(0)
-  const [text, setText] = useState(
-    GraphToString(defaultGraphs[selectedDefaultGraph].graph)
-  )
+  const [text, setText] = useState(GraphToString(aviableGraphs[selectedDefaultGraph].graph))
   const [textError, setTextError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -64,12 +62,12 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
     const id: number = (event.target as any).value
 
     setSelectedDefaultGraph(id)
-    setText(GraphToString(defaultGraphs[id].graph))
+    setText(GraphToString(aviableGraphs[id].graph))
     setTextError(false)
   }, [])
 
   const useDefaultGraph = useCallback(() => {
-    addNewGraph(defaultGraphs[selectedDefaultGraph].graph)
+    addNewGraph(aviableGraphs[selectedDefaultGraph].graph)
   }, [selectedDefaultGraph, addNewGraph])
 
   const handleChange = useCallback(
@@ -77,7 +75,7 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
       const content: string = (target as any).value
 
       if (textError) {
-        const err = CheckValue(content)
+        const err = CheckGraphMatrixStringReprezentation(content)
 
         if (err === null) {
           setTextError(false)
@@ -90,16 +88,19 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
   )
 
   const handleBlur = useCallback(() => {
-    const err = CheckValue(text)
+    const err = CheckGraphMatrixStringReprezentation(text)
 
     setTextError(err !== null)
     setErrorMessage(err || '')
   }, [text])
 
   const handleUseButton = useCallback(() => {
-    if (textError || CheckValue(text) !== null) return
+    if (textError || CheckGraphMatrixStringReprezentation(text) !== null) return
 
-    addNewGraph(parseGraph(text))
+    const newGraph = parseGraph(text)
+
+    addNewDefaultGraph(newGraph)
+    addNewGraph(newGraph)
   }, [textError, text, addNewGraph])
 
   return (
@@ -107,9 +108,7 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
       <Topic />
 
       <section className={classes.section}>
-        <Typography variant='h6'>
-          1. Wybierz jeden z domyślnie dostępnych grafów
-        </Typography>
+        <Typography variant='h6'>1. Wybierz jeden z domyślnie dostępnych grafów</Typography>
 
         <FormControl className={classes.formControl}>
           <Select
@@ -117,7 +116,7 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
             onChange={handleSelectChange}
             classes={{ root: classes.select }}
           >
-            {defaultGraphs.map(({ name }, id) => (
+            {aviableGraphs.map(({ name }, id) => (
               <MenuItem value={id} key={id}>
                 {name}
               </MenuItem>
