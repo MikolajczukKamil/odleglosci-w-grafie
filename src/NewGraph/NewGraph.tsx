@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     [theme.breakpoints.down('xs')]: {
       width: '100%'
-    },
+    }
   },
   select: {
     '&:focus': {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(2),
       marginLeft: 0
-    },
+    }
   },
   buttonText: {
     marginTop: theme.spacing(4),
@@ -63,9 +63,7 @@ interface IPropsNewGraph {
 export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
   const classes = useStyles()
   const [selectedDefaultGraph, setSelectedDefaultGraph] = useState(0)
-  const [text, setText] = useState(
-    GraphToString(aviableGraphs[selectedDefaultGraph].graph)
-  )
+  const [text, setText] = useState(GraphToString(aviableGraphs[selectedDefaultGraph].graph))
   const [textError, setTextError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -119,9 +117,7 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
       <Topic />
 
       <section className={classes.section}>
-        <Typography variant='h6'>
-          1. Wybierz jeden z domyślnie dostępnych grafów
-        </Typography>
+        <Typography variant='h6'>1. Wybierz jeden z domyślnie dostępnych grafów</Typography>
 
         <FormControl className={classes.formControl}>
           <Select

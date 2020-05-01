@@ -6,8 +6,8 @@ const useStyles = makeStyles({
   root: {
     flex: 1,
     justifyContent: 'center',
-    display: 'flex',
-  },
+    display: 'flex'
+  }
 })
 
 interface TabPanelProps {

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useCallback,
-  ChangeEvent,
-  useRef
-} from 'react'
+import React, { useState, useContext, useCallback, ChangeEvent, useRef } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
@@ -51,12 +45,7 @@ export default function Navigation() {
   return (
     <>
       <Paper color='default' square>
-        <Tabs
-          centered
-          value={openTabId}
-          onChange={handleChange}
-          indicatorColor='primary'
-        >
+        <Tabs centered value={openTabId} onChange={handleChange} indicatorColor='primary'>
           <Tab label='Wprowadzanie grafu' classes={{ root: classes.tab }} />
 
           <Tab
@@ -81,12 +70,7 @@ export default function Navigation() {
         Item Two
       </TabPanel>
 
-      <TabPanel
-        value={openTabId}
-        index={2}
-        fullContent
-        ref={networkTabPanelRef}
-      >
+      <TabPanel value={openTabId} index={2} fullContent ref={networkTabPanelRef}>
         <GraphPresentation containerRef={networkTabPanelRef} />
       </TabPanel>
     </>

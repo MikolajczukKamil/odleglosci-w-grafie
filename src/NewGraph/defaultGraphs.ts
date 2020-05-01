@@ -12,28 +12,21 @@ const buildInGraphs: IAvailableGraph[] = [
       [0, 0, 0, 1, 0, 0],
       [0, 0, 0, 0, 1, 1],
       [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-
-      // [0, 1, 0, 0, 1, 0],
-      // [1, 0, 1, 0, 1, 0],
-      // [0, 1, 0, 1, 0, 0],
-      // [0, 0, 1, 0, 1, 1],
-      // [1, 1, 0, 1, 0, 0],
-      // [0, 0, 0, 1, 0, 0],
-    ],
+      [0, 0, 0, 0, 0, 0]
+    ]
   },
   {
     name: '3 wierzchołkowy wielokąt foremny',
     graph: [
       [0, 1, 1],
       [1, 0, 1],
-      [1, 1, 0],
-    ],
+      [1, 1, 0]
+    ]
   },
   {
     name: 'Cuda na patyku',
-    graph: [[1]],
-  },
+    graph: [[1]]
+  }
 ]
 
 const userGraphs: IAvailableGraph[] = []
@@ -54,7 +47,7 @@ export function addNewDefaultGraph(
   graph: number[][],
   name = `Twój graf ${new Date().toLocaleDateString(undefined, {
     hour: 'numeric',
-    minute: 'numeric',
+    minute: 'numeric'
   })}`
 ) {
   const newGraph: IAvailableGraph = { name, graph }
