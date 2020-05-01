@@ -1,4 +1,10 @@
-import React, { useState, useContext, useCallback, ChangeEvent, useRef } from 'react'
+import React, {
+  useState,
+  useContext,
+  useCallback,
+  ChangeEvent,
+  useRef
+} from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
@@ -11,10 +17,12 @@ import GraphPresentation from '../GraphPresentation'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tab: {
-    paddingRight: theme.spacing(5),
-    paddingLeft: theme.spacing(5),
-    maxWidth: 'max-content',
-  },
+    [theme.breakpoints.up('md')]: {
+      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(5)
+    },
+    maxWidth: 'max-content'
+  }
 }))
 
 export default function Navigation() {
@@ -43,14 +51,25 @@ export default function Navigation() {
   return (
     <>
       <Paper color='default' square>
-        <Tabs value={openTabId} onChange={handleChange} centered indicatorColor='primary'>
+        <Tabs
+          centered
+          value={openTabId}
+          onChange={handleChange}
+          indicatorColor='primary'
+        >
           <Tab label='Wprowadzanie grafu' classes={{ root: classes.tab }} />
+
           <Tab
             label='Znajdowanie odległości'
             classes={{ root: classes.tab }}
             disabled={!isGraphLoaded}
           />
-          <Tab label='Prezentacja grafu' classes={{ root: classes.tab }} disabled={!isGraphLoaded} />
+
+          <Tab
+            label='Prezentacja grafu'
+            classes={{ root: classes.tab }}
+            disabled={!isGraphLoaded}
+          />
         </Tabs>
       </Paper>
 
@@ -62,7 +81,12 @@ export default function Navigation() {
         Item Two
       </TabPanel>
 
-      <TabPanel value={openTabId} index={2} fullContent ref={networkTabPanelRef}>
+      <TabPanel
+        value={openTabId}
+        index={2}
+        fullContent
+        ref={networkTabPanelRef}
+      >
         <GraphPresentation containerRef={networkTabPanelRef} />
       </TabPanel>
     </>

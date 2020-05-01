@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box'
 const useStyles = makeStyles({
   root: {
     flex: 1,
+    justifyContent: 'center',
     display: 'flex',
   },
 })
