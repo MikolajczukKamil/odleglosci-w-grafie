@@ -11,22 +11,22 @@ const options: Options = {
     size: 30,
     font: {
       size: 28,
-      color: grey[800]
+      color: grey[800],
     },
     color: indigo[700],
-    borderWidth: 2
+    borderWidth: 2,
   },
   edges: {
     width: 2,
     arrows: {
-      to: true
+      to: true,
     },
-    length: 1.2 * 256
+    length: 1.2 * 256,
   },
   autoResize: true,
   height: '100vw',
   width: '100vh',
-  locale: 'pl'
+  locale: 'pl',
 }
 
 interface IGraphPresentationProps {
@@ -41,7 +41,7 @@ export default function GraphPresentation({ containerRef }: IGraphPresentationPr
     if (containerRef.current !== null && network === null && isGraphLoaded) {
       const data: Data = {
         nodes: graph.getNodes(),
-        edges: graph.getEdges()
+        edges: graph.getEdges(),
       }
 
       const width = `${containerRef.current.offsetWidth}px`

@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(4),
     width: 'fit-content',
     margin: 'auto',
-    maxWidth: theme.breakpoints.values.sm
-  }
+    maxWidth: theme.breakpoints.values.sm,
+  },
 }))
 
 export default function Topic() {

@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
+import BFS from '../BFS'
 import TabPanel from './TabPanel'
 import NewGraph from '../NewGraph'
 import { graphContext } from '../GraphContext'
@@ -13,10 +14,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   tab: {
     [theme.breakpoints.up('md')]: {
       paddingRight: theme.spacing(5),
-      paddingLeft: theme.spacing(5)
+      paddingLeft: theme.spacing(5),
     },
-    maxWidth: 'max-content'
-  }
+    maxWidth: 'max-content',
+  },
 }))
 
 export default function Navigation() {
@@ -37,7 +38,7 @@ export default function Navigation() {
   const addNewGraph = useCallback(
     (graphAdjacencyMatrix: number[][]) => {
       loadGraph(graphAdjacencyMatrix)
-      setOpenTabId(2)
+      setOpenTabId(1)
     },
     [loadGraph]
   )
@@ -67,7 +68,7 @@ export default function Navigation() {
       </TabPanel>
 
       <TabPanel value={openTabId} index={1}>
-        Item Two
+        <BFS />
       </TabPanel>
 
       <TabPanel value={openTabId} index={2} fullContent ref={networkTabPanelRef}>

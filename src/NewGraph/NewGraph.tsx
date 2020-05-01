@@ -16,21 +16,21 @@ import CheckGraphMatrixStringReprezentation from './CheckGraphMatrixStringReprez
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
     maxWidth: theme.breakpoints.values.md,
-    margin: `${theme.spacing(4)}px auto`
+    margin: `${theme.spacing(4)}px auto`,
   },
   formControl: {
     marginTop: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
-      width: 512
+      width: 512,
     },
     [theme.breakpoints.down('xs')]: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   select: {
     '&:focus': {
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    },
   },
   buttonList: {
     marginLeft: theme.spacing(4),
@@ -39,21 +39,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(2),
-      marginLeft: 0
-    }
+      marginLeft: 0,
+    },
   },
   buttonText: {
     marginTop: theme.spacing(4),
     paddingRight: theme.spacing(5),
-    paddingLeft: theme.spacing(5)
+    paddingLeft: theme.spacing(5),
   },
   textField: {
     width: '100%',
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   textArea: {
-    minHeight: 200
-  }
+    minHeight: 200,
+  },
 }))
 
 interface IPropsNewGraph {
@@ -113,7 +113,7 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
   }, [textError, text, addNewGraph])
 
   return (
-    <>
+    <div>
       <Topic />
 
       <section className={classes.section}>
@@ -175,6 +175,6 @@ export default function NewGraph({ addNewGraph }: IPropsNewGraph) {
           Użyj
         </Button>
       </section>
-    </>
+    </div>
   )
 }

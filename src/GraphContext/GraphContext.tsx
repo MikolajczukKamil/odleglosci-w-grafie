@@ -12,7 +12,7 @@ const defaultValue: IGraphContextValue = {
   graph: new Graph([]),
   loadGraph: () => void 0,
   isGraphLoaded: false,
-  deleteGraph: () => void 0
+  deleteGraph: () => void 0,
 }
 
 export const graphContext = createContext<IGraphContextValue>(defaultValue)

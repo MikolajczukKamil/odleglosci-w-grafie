@@ -5,9 +5,14 @@ import Box from '@material-ui/core/Box'
 const useStyles = makeStyles({
   root: {
     flex: 1,
+    display: 'flex',
     justifyContent: 'center',
-    display: 'flex'
-  }
+  },
+  box: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
 })
 
 interface TabPanelProps {
@@ -33,7 +38,15 @@ const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
         hidden={!visable}
         className={visable ? classess.root : undefined}
       >
-        {visable ? fullContent ? children : <Box p={3}>{children}</Box> : null}
+        {visable ? (
+          fullContent ? (
+            children
+          ) : (
+            <Box p={3} className={classess.box}>
+              {children}
+            </Box>
+          )
+        ) : null}
       </div>
     )
   }
