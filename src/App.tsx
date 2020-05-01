@@ -1,18 +1,31 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import Main from './Main'
+import Header from './Header'
+import Navigation from './Navigation'
+import { GraphContextProvider } from './GraphContext'
+
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+})
 
 function App() {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    Main(ref)
-  }, [ref])
+  const classes = useStyles()
 
   return (
     <CssBaseline>
-      <div ref={ref}></div>
+      <GraphContextProvider>
+        <div className={classes.root}>
+          <Header />
+
+          <Navigation />
+        </div>
+      </GraphContextProvider>
     </CssBaseline>
   )
 }
