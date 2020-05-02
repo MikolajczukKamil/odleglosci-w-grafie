@@ -43,11 +43,9 @@ export default class Graph {
 
     const neighbors: number[] = []
 
-    for (let from = 0; from < this.adjacencyMatrix.length; from++) {
-      for (let to = 0; to < this.adjacencyMatrix.length; to++) {
-        if (this.adjacencyMatrix[from][to] !== 0) {
-          neighbors.push(to)
-        }
+    for (let to = 0; to < this.adjacencyMatrix.length; to++) {
+      if (this.adjacencyMatrix[index][to] !== 0) {
+        neighbors.push(to)
       }
     }
 
