@@ -38,6 +38,22 @@ export default class Graph {
     return edges
   }
 
+  public getNeighbors(index: number) {
+    if (index < 0 || index >= this.Size) return []
+
+    const neighbors: number[] = []
+
+    for (let from = 0; from < this.adjacencyMatrix.length; from++) {
+      for (let to = 0; to < this.adjacencyMatrix.length; to++) {
+        if (this.adjacencyMatrix[from][to] !== 0) {
+          neighbors.push(to)
+        }
+      }
+    }
+
+    return neighbors
+  }
+
   public static fromIndexToName(index: number) {
     return index + A > Z ? index.toString() : String.fromCharCode(index + A)
   }
