@@ -2,8 +2,7 @@ export default class BFSState {
   constructor(
     private queue: number[],
     private visited: boolean[],
-    private distance: number[],
-    private previus: number[]
+    private distance: number[]
   ) {}
 
   public get Queue() {
@@ -16,9 +15,5 @@ export default class BFSState {
 
   public get Distance() {
     return this.distance.slice(0)
-  }
-
-  public get Previus() {
-    return this.previus.slice(0)
   }
 }

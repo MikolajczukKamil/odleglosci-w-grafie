@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
@@ -27,11 +28,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   main: {
     flex: 1,
   },
+  step: {
+    userSelect: 'none',
+    fontWeight: 'bold',
+    marginTop: 'auto',
+  },
 }))
 
 export default function BFS() {
   const classes = useStyles()
-  const { isGraphLoaded, loadGraph, deleteGraph } = useContext(graphContext)
+  const { isGraphLoaded, graph } = useContext(graphContext)
 
   return (
     <>
@@ -50,6 +56,8 @@ export default function BFS() {
         >
           <ArrowBackIcon fontSize="large" color="primary" />
         </IconButton>
+
+        <Typography classes={{ root: classes.step }}>Krok: {1}</Typography>
 
         <IconButton
           color="primary"
