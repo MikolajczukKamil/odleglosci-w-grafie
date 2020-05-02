@@ -1,3 +1,5 @@
+import Graph from '../Graph'
+
 interface ICode {
   id: number
   content: string
@@ -9,6 +11,7 @@ const code: ICode[] = [
   [0, '// Odwiedzone[...] = NIE'],
   [0, '// Odległość[...] = Nieskończoność'],
   [0, '// Kolejka = Pusta'],
+  // 4
   [0, 'Odwiedzone[Startowy] = TAK'],
   [0, 'Odległość[Startowy] = 0'],
   [0, 'Kolejka.Wstaw(Startowy)'],
@@ -22,12 +25,38 @@ const code: ICode[] = [
   [3, 'Odległość[Sąsiad] = Odległosć[Pierwszy] + 1'],
   [3, 'Kolejka.Wstaw(Sąsiad)'],
   [1, 'Odwiedzone[Pierwszy] = TAK'],
-].map(([indentation, content], id) => ({ id, content, indentation }) as ICode)
+].map(([indentation, content], id) => ({ id, content, indentation } as ICode))
+
+function Copy<T>(arr: T[]) {
+  return arr.slice(0)
+}
+
+export class IStep {
+  public queue: string[]
+  public visited: boolean[]
+  public distances: number[]
+
+  constructor(
+    public lineId: number,
+    queue: number[],
+    visited: boolean[],
+    distances: number[]
+  ) {
+    this.queue = queue.map((id) => Graph.fromIndexToName(id))
+    this.visited = Copy(visited)
+    this.distances = Copy(distances)
+    this.lineId = lineId
+  }
+}
 
 export class BFSAlgorythm {
-  constructor(
-    private graph: number[][],
-    private start: number,
-    private step = 1
-  ) {}
+  public steps: IStep[] = []
+
+  constructor(private graph: Graph, private startIndex: number) {
+    const Q: number[] = []
+    const visited: boolean[] = new Array(graph.Size).fill(false)
+    const distances: number[] = new Array(graph.Size).fill(Infinity)
+
+    this.steps.push(new IStep(0, Q, visited, distances))
+  }
 }

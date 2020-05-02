@@ -6,7 +6,7 @@ const Z = 'Z'.charCodeAt(0)
 export default class Graph {
   private adjacencyMatrix: number[][]
 
-  public get size() {
+  public get Size() {
     return this.adjacencyMatrix.length
   }
 
@@ -18,9 +18,7 @@ export default class Graph {
     const nodes: Node[] = []
 
     for (let i = 0; i < this.adjacencyMatrix.length; i++) {
-      const label = i + A > Z ? i.toString() : String.fromCharCode(i + A)
-
-      nodes.push({ id: i, label })
+      nodes.push({ id: i, label: Graph.fromIndexToName(i) })
     }
 
     return nodes
@@ -38,5 +36,9 @@ export default class Graph {
     }
 
     return edges
+  }
+
+  public static fromIndexToName(index: number) {
+    return index + A > Z ? index.toString() : String.fromCharCode(index + A)
   }
 }
