@@ -5,7 +5,9 @@ import Typography from '@material-ui/core/Typography'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
+import Code from './Code'
 import Queue from './Queue'
+import Matrix from './Matrix'
 import Visited from './Visited'
 import Distance from './Distance'
 import { BFSAlgorythm } from './BFSAlgorythm'
@@ -73,22 +75,9 @@ export default function BFS() {
         ) : null}
       </div>
 
-      <div>
-        {BFSAlgorythm.code.map(({ id, content, indentation }) => (
-          <div
-            key={id}
-            style={{
-              minHeight: '0.5em',
-              borderLeft: '1px solid black',
-              marginLeft: indentation * 8,
-              paddingLeft: 4,
-              fontWeight: id === currentStep.line ? 'bold' : 'normal',
-            }}
-          >
-            {content}
-          </div>
-        ))}
-      </div>
+      <Code code={BFSAlgorythm.code} selectedLine={currentStep.line} />
+
+      <Matrix graph={graph} first={currentStep.firstIndex} markFirst={currentStep.markFirstInMatrix} />
 
       <section className={classes.navigation}>
         <IconButton

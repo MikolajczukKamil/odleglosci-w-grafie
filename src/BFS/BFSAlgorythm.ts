@@ -1,10 +1,6 @@
 import Graph from '../Graph'
 
-interface ICode {
-  id: number
-  content: string
-  indentation: number
-}
+import { ICode } from './Code'
 
 function Copy<T>(arr: T[]) {
   return arr.slice(0)
@@ -27,8 +23,9 @@ export class IStep {
 
   public line: number
   public first: string
-  public markFirstInMatrix: boolean
   public neighbor: string
+  public firstIndex: number
+  public markFirstInMatrix: boolean
 
   constructor({
     line,
@@ -43,6 +40,7 @@ export class IStep {
     this.visited = Copy(visited)
     this.distances = Copy(distances)
     this.line = line
+    this.firstIndex = first
     this.first = first < 0 ? '' : Graph.fromIndexToName(first)
     this.markFirstInMatrix = markFirstInMatrix
     this.neighbor = neighbor < 0 ? '' : Graph.fromIndexToName(neighbor)
