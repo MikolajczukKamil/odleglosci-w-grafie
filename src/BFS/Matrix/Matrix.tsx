@@ -1,21 +1,19 @@
 import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
 import classNames from 'classnames'
 
-import Graph from '../Graph'
+import Graph from '../../Graph'
+import MatrixContainer from './MatrixContainer'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    fontSize: theme.typography.h5.fontSize,
-    padding: theme.spacing(2),
-    width: 'min-content',
-  },
   row: {
     display: 'flex',
+    '&:hover': {
+      backgroundColor: theme.palette.grey[100],
+    },
   },
   selectedRow: {
-    backgroundColor: theme.palette.grey[100],
+    fontWeight: 'bold',
   },
   col: {
     width: '1em',
@@ -36,7 +34,7 @@ export default function Matrix({ graph, first, markFirst }: IMatrixProps) {
   const classes = useStyles()
 
   return (
-    <Paper classes={{ root: classes.root }}>
+    <MatrixContainer>
       {graph.map((mapColumns, i) => (
         <div
           key={i}
@@ -51,6 +49,6 @@ export default function Matrix({ graph, first, markFirst }: IMatrixProps) {
           ))}
         </div>
       ))}
-    </Paper>
+    </MatrixContainer>
   )
 }
