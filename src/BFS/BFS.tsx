@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react'
+import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
@@ -10,13 +10,10 @@ import LastPageIcon from '@material-ui/icons/LastPage'
 import FirstPageIcon from '@material-ui/icons/FirstPage'
 
 import Code from './Code'
-import Queue from './Queue'
 import Matrix from './Matrix'
-import NodeBox from './NodeBox'
-import Visited from './Visited'
-import Distance from './Distance'
 import { BFSAlgorythm } from './BFSAlgorythm'
-import { graphContext } from '../GraphContext'
+import useBFSAlgorithm from './useBFSAlgorithm'
+import { Queue, Visited, Distance, Variables } from './Lists'
 
 const useStyles = makeStyles((theme: Theme) => ({
   navigation: {
@@ -45,37 +42,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function BFS() {
   const classes = useStyles()
-  let [algotythm, setAlgorythm] = useState<BFSAlgorythm | null>(null)
-  let [step, setStep] = useState(0)
-  const { isGraphLoaded, graph } = useContext(graphContext)
+  const {
+    step,
+    steps,
+    graph,
+    nextStep,
+    previusStep,
+    scrollToEnd,
+    currentStep,
+    correctLoaded,
+    scrollToBegining,
+  } = useBFSAlgorithm()
 
-  if (algotythm === null) {
-    setAlgorythm((algotythm = new BFSAlgorythm(graph, 0)))
-  }
-
-  const nextStep = useCallback(() => {
-    setStep((step) =>
-      algotythm === null || step >= algotythm.steps.length ? step : step + 1
-    )
-  }, [algotythm])
-
-  const previusStep = useCallback(() => {
-    setStep((step) => (step <= 0 ? step : step - 1))
-  }, [])
-
-  const scrollToBegining = useCallback(() => {
-    setStep(0)
-  }, [])
-
-  const scrollToEnd = useCallback(() => {
-    setStep(algotythm !== null ? Math.max(algotythm.steps.length - 1, 0) : 0)
-  }, [algotythm])
-
-  if (!isGraphLoaded || algotythm.steps.length === 0) {
+  if (!correctLoaded) {
     return null
   }
-
-  const currentStep = algotythm.steps[step]
 
   return (
     <>
@@ -83,21 +64,17 @@ export default function BFS() {
         <Queue queue={currentStep.queue} />
         <Visited visited={currentStep.visited} />
         <Distance distances={currentStep.distances} />
+        <Variables
+          variables={[
+            currentStep.first.length !== 0
+              ? { name: 'Pierwszy', value: currentStep.first }
+              : null,
+            currentStep.neighbor.length !== 0
+              ? { name: 'Sąsiad', value: currentStep.neighbor }
+              : null,
+          ]}
+        />
       </main>
-
-      <div>
-        {currentStep.first.length !== 0 ? (
-          <p>
-            Pierwszy: <NodeBox name={currentStep.first} />
-          </p>
-        ) : null}
-
-        {currentStep.neighbor.length !== 0 ? (
-          <p>
-            Sąsiad: <NodeBox name={currentStep.neighbor} />
-          </p>
-        ) : null}
-      </div>
 
       <div className={classes.middle}>
         <Code code={BFSAlgorythm.code} selectedLine={currentStep.line} />
@@ -141,7 +118,7 @@ export default function BFS() {
         </div>
 
         <Typography classes={{ root: classes.step }}>
-          Krok: {step + 1} / {algotythm.steps.length}
+          Krok: {step + 1} / {steps}
         </Typography>
 
         <div>
@@ -151,13 +128,11 @@ export default function BFS() {
             onClick={scrollToEnd}
             aria-label="Przewiń do końca"
             classes={{ root: classes.navigationIcon }}
-            disabled={step >= algotythm.steps.length - 1}
+            disabled={step >= steps - 1}
           >
             <LastPageIcon
               fontSize="large"
-              color={
-                step >= algotythm.steps.length - 1 ? 'disabled' : 'primary'
-              }
+              color={step >= steps - 1 ? 'disabled' : 'primary'}
             />
           </IconButton>
 
@@ -167,13 +142,11 @@ export default function BFS() {
             onClick={nextStep}
             aria-label="następny krok"
             classes={{ root: classes.navigationIcon }}
-            disabled={step >= algotythm.steps.length - 1}
+            disabled={step >= steps - 1}
           >
             <ArrowForwardIcon
               fontSize="large"
-              color={
-                step >= algotythm.steps.length - 1 ? 'disabled' : 'primary'
-              }
+              color={step >= steps - 1 ? 'disabled' : 'primary'}
             />
           </IconButton>
         </div>

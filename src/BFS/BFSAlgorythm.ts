@@ -27,6 +27,13 @@ export class IStep {
   public firstIndex: number
   public markFirstInMatrix: boolean
 
+  public static Empty = new IStep({
+    line: -1,
+    queue: [],
+    visited: [],
+    distances: [],
+  })
+
   constructor({
     line,
     queue,

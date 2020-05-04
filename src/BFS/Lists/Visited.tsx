@@ -1,6 +1,6 @@
 import React from 'react'
 import List from './List'
-import Graph from '../Graph'
+import Graph from '../../Graph'
 
 interface IVisitedProps {
   visited: boolean[]
