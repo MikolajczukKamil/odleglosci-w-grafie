@@ -38,9 +38,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-around',
-    [theme.breakpoints.down('sm')]: {
-      // flexDirection: 'column',
-    },
   },
 }))
 

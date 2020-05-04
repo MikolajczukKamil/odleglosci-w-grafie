@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
 import BFS from '../BFS'
+import TabLabel from './TabLabel'
 import TabPanel from './TabPanel'
 import NewGraph from '../NewGraph'
 import useNavigation from './useNavigation'
@@ -34,16 +35,34 @@ export default function Navigation() {
           onChange={handleChange}
           indicatorColor="primary"
         >
-          <Tab label="Wprowadzanie grafu" classes={{ root: classes.tab }} />
+          <Tab
+            label={
+              <TabLabel
+                content="Wprowadzanie grafu"
+                shortContent="Wprowadzanie"
+              />
+            }
+            classes={{ root: classes.tab }}
+          />
 
           <Tab
-            label="Znajdowanie odległości"
+            label={
+              <TabLabel
+                content="Znajdowanie odległości"
+                shortContent="Odległości"
+              />
+            }
             classes={{ root: classes.tab }}
             disabled={!isGraphLoaded}
           />
 
           <Tab
-            label="Prezentacja grafu"
+            label={
+              <TabLabel
+                content="Prezentacja grafu"
+                shortContent="Prezentacja"
+              />
+            }
             classes={{ root: classes.tab }}
             disabled={!isGraphLoaded}
           />

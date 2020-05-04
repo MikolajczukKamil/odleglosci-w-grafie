@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       background: theme.palette.grey[500],
       color: theme.palette.common.white,
     },
+    maxWidth: '100%',
+    overflow: 'hidden',
     margin: theme.spacing(1),
     padding: theme.spacing(2),
     width: 'fit-content',
@@ -21,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   line: {
     display: 'flex',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: theme.typography.pxToRem(theme.typography.fontSize * 0.8),
+    },
     '&:hover': {
       backgroundColor: theme.palette.grey[100],
     },
@@ -33,10 +38,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   lineContent: {
     paddingLeft: 4,
+    whiteSpace: 'nowrap',
     paddingRight: theme.spacing(1),
   },
   indentation: {
-    width: theme.spacing(1.5),
+    minWidth: theme.spacing(1.5),
     borderLeft: `1px solid ${theme.palette.grey[300]}`,
   },
 }))
@@ -50,7 +56,7 @@ export default function Code({ code, selectedLine }: ICodeProps) {
   const classes = useStyles()
 
   const lineNbStyle = {
-    width: `${Math.floor(Math.log10(code.length) + 1)}em`,
+    minWidth: `${Math.floor(Math.log10(code.length) + 1)}em`,
   }
 
   return (
