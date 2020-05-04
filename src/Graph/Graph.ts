@@ -3,10 +3,13 @@ import { Edge, Node } from 'vis'
 const A = 'A'.charCodeAt(0)
 const Z = 'Z'.charCodeAt(0)
 
+type ColMap<T> = (value: number, j: number) => T
+type RowMap<T, R> = (map: (colMap: ColMap<R>) => R[], i: number) => T
+
 export default class Graph {
   private adjacencyMatrix: number[][]
 
-  public get size() {
+  public get Size() {
     return this.adjacencyMatrix.length
   }
 
@@ -14,13 +17,17 @@ export default class Graph {
     this.adjacencyMatrix = adjMatrix
   }
 
+  public map<T, R>(rowMap: RowMap<T, R>) {
+    return this.adjacencyMatrix.map((row, i) =>
+      rowMap((colMap) => row.map((value, j) => colMap(value, j)), i)
+    )
+  }
+
   public getNodes() {
     const nodes: Node[] = []
 
     for (let i = 0; i < this.adjacencyMatrix.length; i++) {
-      const label = i + A > Z ? i.toString() : String.fromCharCode(i + A)
-
-      nodes.push({ id: i, label })
+      nodes.push({ id: i, label: Graph.fromIndexToName(i) })
     }
 
     return nodes
@@ -38,5 +45,23 @@ export default class Graph {
     }
 
     return edges
+  }
+
+  public getNeighbors(index: number) {
+    if (index < 0 || index >= this.Size) return []
+
+    const neighbors: number[] = []
+
+    for (let to = 0; to < this.adjacencyMatrix.length; to++) {
+      if (this.adjacencyMatrix[index][to] !== 0) {
+        neighbors.push(to)
+      }
+    }
+
+    return neighbors
+  }
+
+  public static fromIndexToName(index: number) {
+    return index + A > Z ? index.toString() : String.fromCharCode(index + A)
   }
 }

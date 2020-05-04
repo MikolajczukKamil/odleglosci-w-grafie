@@ -23,10 +23,6 @@ const buildInGraphs: IAvailableGraph[] = [
       [1, 1, 0],
     ],
   },
-  {
-    name: 'Cuda na patyku',
-    graph: [[1]],
-  },
 ]
 
 const userGraphs: IAvailableGraph[] = []
@@ -36,7 +32,9 @@ const userGraphs: IAvailableGraph[] = []
 
   if (userGraphsLocalStorage !== null) {
     try {
-      userGraphs.push(...(JSON.parse(userGraphsLocalStorage) as IAvailableGraph[]))
+      userGraphs.push(
+        ...(JSON.parse(userGraphsLocalStorage) as IAvailableGraph[])
+      )
     } catch {}
   }
 })()

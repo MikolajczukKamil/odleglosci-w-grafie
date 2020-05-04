@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   box: {
     flex: 1,
     display: 'flex',
+    maxWidth: '100%',
     flexDirection: 'column',
   },
 })

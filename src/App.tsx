@@ -9,8 +9,9 @@ import { GraphContextProvider } from './GraphContext'
 const useStyles = makeStyles({
   root: {
     display: 'flex',
-    flexDirection: 'column',
+    maxWidth: '100vw',
     minHeight: '100vh',
+    flexDirection: 'column',
   },
 })
 
