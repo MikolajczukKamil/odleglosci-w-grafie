@@ -4,9 +4,10 @@ import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    fontSize: theme.typography.h5.fontSize,
-    padding: theme.spacing(2),
     width: 'min-content',
+    margin: theme.spacing(1),
+    padding: theme.spacing(2),
+    fontSize: theme.typography.h5.fontSize,
   },
   border: {
     width: 4,

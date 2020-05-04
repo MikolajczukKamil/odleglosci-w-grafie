@@ -29,14 +29,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 1,
   },
   step: {
+    marginTop: 'auto',
     userSelect: 'none',
     fontWeight: 'bold',
-    marginTop: 'auto',
   },
   middle: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
     alignItems: 'center',
+    justifyContent: 'space-around',
+    [theme.breakpoints.down('sm')]: {
+      // flexDirection: 'column',
+    },
   },
 }))
 

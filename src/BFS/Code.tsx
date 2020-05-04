@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       background: theme.palette.grey[500],
       color: theme.palette.common.white,
     },
+    margin: theme.spacing(1),
     padding: theme.spacing(2),
     width: 'fit-content',
     color: theme.palette.grey[800],

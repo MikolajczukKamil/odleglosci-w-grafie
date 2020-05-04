@@ -3,11 +3,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
-import NodeBox from './NodeBox'
+import NodeBox, { size, mdSize, xsSize } from './NodeBox'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
@@ -16,11 +17,24 @@ const useStyles = makeStyles((theme: Theme) => ({
   empty: {
     fontWeight: 'bold',
     verticalAlign: 'middle',
-    height: theme.spacing(5),
-    lineHeight: `${theme.spacing(5)}px`,
+    height: theme.spacing(size),
+    lineHeight: `${theme.spacing(size)}px`,
+    [theme.breakpoints.down('md')]: {
+      height: theme.spacing(mdSize),
+      lineHeight: `${theme.spacing(mdSize)}px`,
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: theme.spacing(xsSize),
+      lineHeight: `${theme.spacing(xsSize)}px`,
+    },
   },
   title: {
-    width: 128,
+    width: theme.spacing(16),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  list: {
+    display: 'flex',
   },
 }))
 
@@ -48,9 +62,11 @@ export default function List({ list, title, emptyMessage }: IListProps) {
         </Typography>
       ) : null}
 
-      {list.map(({ name, disabled }, i) => (
-        <NodeBox key={i} name={name} disabled={disabled} />
-      ))}
+      <div className={classes.list}>
+        {list.map(({ name, disabled }, i) => (
+          <NodeBox key={i} name={name} disabled={disabled} />
+        ))}
+      </div>
     </Paper>
   )
 }

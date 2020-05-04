@@ -6,6 +6,7 @@ import NodeBox from './NodeBox'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
+    alignItems: 'center',
   },
   spacer: {
     width: theme.spacing(1),
