@@ -10,6 +10,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     maxWidth: '100vw',
+    overflow: 'hidden',
     minHeight: '100vh',
     flexDirection: 'column',
   },
