@@ -9,9 +9,17 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import InfoIcon from '@material-ui/icons/Info'
 
+import logo from '../img/logo.png'
+
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
     backgroundColor: theme.palette.grey[100],
+  },
+  logo: {
+    width: 192,
+    margin: 'auto',
+    display: 'block',
+    marginBottom: theme.spacing(4),
   },
 }))
 
@@ -43,26 +51,46 @@ export default function Info() {
         </DialogTitle>
 
         <DialogContent dividers>
+          <img src={logo} alt="Logo" className={classes.logo} />
+
           <Typography gutterBottom>
-            Cel: Wyznaczenie odległości pomiędzy dowolnymi wierzchołkami w
-            grafie spójnym skierowanym
+            <b>Cel</b>
+            <br />
+            Wyznaczenie odległości pomiędzy dowolnymi wierzchołkami w grafie
+            spójnym skierowanym. Wykorzystanie algorytmu BSF
           </Typography>
 
           <Typography gutterBottom>
-            Jak wprowadzić graf, można skorzystać z gotowych grafów wybierając
-            je z listy lub wprowadzić swój graf.
+            <b>Jak wprowadzić graf?</b>
             <br />
-            Format danych to dwuwymiarowa tablica JSON np [ [0, 1], [1, 0] ]
+            Można skorzystać z gotowych grafów wybierając je z listy lub
+            wprowadzić swój graf
+          </Typography>
+
+          <Typography gutterBottom>
+            <b>Format danych</b>
+            <br />
+            Dwuwymiarowa tablica JSON np [ [0, 1], [1, 0] ]
+          </Typography>
+
+          <Typography>
+            <b>Krótka instrukcja</b>
             <br />
             Jeżeli wybierzesz jeden z dostępnych grafów zostanie on załadowanych
             do edytora, można go wyedytować
             <br />
             Stworzone grafy zostaną zapisane i będą dostępne na liście
-          </Typography>
-
-          <Typography gutterBottom>
+            <br />
             Dostęp do zakładek z znajdowaniem odległości oraz do wizualizacji
             grafu pojawi się po wybraniu grafu
+            <br />
+            Po wybraniu grafu przechodzimy do zakładki znajdowanie odległości,
+            tam wybieamy wierzchołek startowy
+            <br />
+            Strzałkami na dole przechodzimy dokolejnych kroków algorytmu
+            <br />
+            Po przejściu całego algorytmu pojawi się raport końcowy, można go
+            otworzyć różnież przyciskiem na dole
           </Typography>
         </DialogContent>
 

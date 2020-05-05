@@ -24,9 +24,7 @@ export default function useBFSAlgorithm() {
   )
 
   const nextStep = useCallback(() => {
-    setStep((step) =>
-      algotythm === null || step >= algotythm.steps.length ? step : step + 1
-    )
+    setStep((step) => (step >= algotythm.steps.length ? step : step + 1))
   }, [algotythm])
 
   const previusStep = useCallback(() => {
@@ -38,7 +36,7 @@ export default function useBFSAlgorithm() {
   }, [])
 
   const scrollToEnd = useCallback(() => {
-    setStep(algotythm !== null ? Math.max(algotythm.steps.length - 1, 0) : 0)
+    setStep(Math.max(algotythm.steps.length - 1, 0))
   }, [algotythm])
 
   const correctLoaded = isGraphLoaded && algotythm.steps.length !== 0

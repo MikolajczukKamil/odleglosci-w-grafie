@@ -171,7 +171,11 @@ export default function BFS() {
         </div>
 
         <div className={classes.stepsReport}>
-          <EndInfo end={finishStep} start={start} />
+          <EndInfo
+            start={start}
+            end={finishStep}
+            openOnFirst={step + 1 === steps}
+          />
 
           <Typography classes={{ root: classes.step }}>
             Krok: {step + 1} / {steps}

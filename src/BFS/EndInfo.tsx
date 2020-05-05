@@ -25,14 +25,28 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface IEndInfoProps {
   end: IStep
   start: number
+  openOnFirst: boolean
 }
 
 export default function EndInfo({
   end: { visited, distances },
+  openOnFirst,
   start,
 }: IEndInfoProps) {
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(openOnFirst)
+  const [usedFirstOpen, setUsedFirstOpen] = useState(openOnFirst)
+
+  useEffect(() => {
+    if (openOnFirst && !usedFirstOpen) {
+      setOpen(true)
+      setUsedFirstOpen(true)
+    }
+  }, [openOnFirst, usedFirstOpen])
+
+  useEffect(() => {
+    setUsedFirstOpen(false)
+  }, [start])
 
   const startName = Graph.fromIndexToName(start)
 
@@ -72,11 +86,13 @@ export default function EndInfo({
           </Typography>
 
           {distances.map((dst, i) => (
-            <Typography key={i}>
+            <Typography key={i} gutterBottom={i === distances.length - 1}>
               z {startName} do {Graph.fromIndexToName(i)} -{' '}
               {Number.isFinite(dst) ? dst : 'nieosiągalny'}
             </Typography>
           ))}
+
+          <Typography>Zobacz graficzną prezentację grafu!</Typography>
         </DialogContent>
 
         <DialogActions>
