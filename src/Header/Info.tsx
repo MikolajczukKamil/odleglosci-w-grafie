@@ -77,7 +77,7 @@ export default function Info() {
             <b>Krótka instrukcja</b>
             <br />
             Jeżeli wybierzesz jeden z dostępnych grafów zostanie on załadowanych
-            do edytora, można go wyedytować
+            do edytora, można go edytować
             <br />
             Stworzone grafy zostaną zapisane i będą dostępne na liście
             <br />
@@ -85,12 +85,12 @@ export default function Info() {
             grafu pojawi się po wybraniu grafu
             <br />
             Po wybraniu grafu przechodzimy do zakładki znajdowanie odległości,
-            tam wybieamy wierzchołek startowy
+            tam wybiramy wierzchołek startowy
             <br />
-            Strzałkami na dole przechodzimy dokolejnych kroków algorytmu
+            Strzałkami na dole przechodzimy do kolejnych kroków algorytmu
             <br />
             Po przejściu całego algorytmu pojawi się raport końcowy, można go
-            otworzyć różnież przyciskiem na dole
+            otworzyć również przyciskiem na dole
           </Typography>
         </DialogContent>
 

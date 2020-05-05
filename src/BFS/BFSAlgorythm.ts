@@ -74,7 +74,7 @@ export class BFSAlgorythm {
     [0, 'Odległość[Startowy] = 0'],
     [0, 'Kolejka.Wstaw(Startowy)'],
     [0, ''],
-    [0, 'Dopuki Kolejka nie jest pusta'],
+    [0, 'Dopóki Kolejka nie jest pusta'],
     [0, ''],
     // 8
     [1, 'Pierwszy = Kolejka.Następny()'],
@@ -85,7 +85,7 @@ export class BFSAlgorythm {
     [2, ''],
     // 13
     [3, 'Odwiedzone[Sąsiad] = TAK'],
-    [3, 'Odległość[Sąsiad] = Odległosć[Pierwszy] + 1'],
+    [3, 'Odległość[Sąsiad] = Odległość[Pierwszy] + 1'],
     [3, 'Kolejka.Wstaw(Sąsiad)'],
   ].map(([indentation, content], id) => ({ id, content, indentation } as ICode))
 
