@@ -57,7 +57,7 @@ export default function Info() {
             <b>Cel</b>
             <br />
             Wyznaczenie odległości pomiędzy dowolnymi wierzchołkami w grafie
-            spójnym skierowanym. Wykorzystanie algorytmu BSF
+            spójnym skierowanym. Wykorzystanie algorytmu BFS
           </Typography>
 
           <Typography gutterBottom>
