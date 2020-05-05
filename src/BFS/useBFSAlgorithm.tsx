@@ -1,22 +1,30 @@
-import { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback, ChangeEvent } from 'react'
 
 import { BFSAlgorythm } from './BFSAlgorythm'
 import { graphContext } from '../GraphContext'
 import { IStep } from './BFSAlgorythm'
 
 export default function useBFSAlgorithm() {
-  let [algotythm, setAlgorythm] = useState<BFSAlgorythm | null>(null)
-  let [step, setStep] = useState(0)
+  const [step, setStep] = useState(0)
+  const [start, setStart] = useState(0)
   const { graph, isGraphLoaded } = useContext(graphContext)
+  const [algotythm, setAlgorythm] = useState(new BFSAlgorythm(graph, start))
 
-  if (algotythm === null) {
-    setAlgorythm((algotythm = new BFSAlgorythm(graph, 0)))
-  }
+  const updateStart = useCallback(
+    (event: ChangeEvent<{ value: any }>) => {
+      const newStart = parseInt(event.target.value)
+
+      if (newStart === start) return
+
+      setStep(0)
+      setStart(newStart)
+      setAlgorythm(new BFSAlgorythm(graph, newStart))
+    },
+    [start, graph]
+  )
 
   const nextStep = useCallback(() => {
-    setStep((step) =>
-      algotythm === null || step >= algotythm.steps.length ? step : step + 1
-    )
+    setStep((step) => (step >= algotythm.steps.length ? step : step + 1))
   }, [algotythm])
 
   const previusStep = useCallback(() => {
@@ -28,7 +36,7 @@ export default function useBFSAlgorithm() {
   }, [])
 
   const scrollToEnd = useCallback(() => {
-    setStep(algotythm !== null ? Math.max(algotythm.steps.length - 1, 0) : 0)
+    setStep(Math.max(algotythm.steps.length - 1, 0))
   }, [algotythm])
 
   const correctLoaded = isGraphLoaded && algotythm.steps.length !== 0
@@ -37,11 +45,18 @@ export default function useBFSAlgorithm() {
 
   const steps = algotythm.steps.length
 
+  const finishStep = correctLoaded
+    ? algotythm.steps[algotythm.steps.length - 1]
+    : IStep.Empty
+
   return {
     step,
     steps,
     graph,
+    start,
     nextStep,
+    finishStep,
+    updateStart,
     previusStep,
     scrollToEnd,
     currentStep,

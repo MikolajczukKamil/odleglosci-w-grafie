@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import classNames from 'classnames'
 
-export const size = 5
+export const size = 4.5
 export const mdSize = size * 0.8
 export const xsSize = size * 0.6
 

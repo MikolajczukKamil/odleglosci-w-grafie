@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback, ChangeEvent } from 'react'
+import { useState, useContext, useCallback } from 'react'
 
 import { graphContext } from '../GraphContext'
 
@@ -7,7 +7,7 @@ export default function useNavigation() {
   const { isGraphLoaded, loadGraph, deleteGraph } = useContext(graphContext)
 
   const handleChange = useCallback(
-    (event: ChangeEvent<{}>, id: number) => {
+    (_, id: number) => {
       if (id === 0) deleteGraph()
 
       setOpenTabId(id)

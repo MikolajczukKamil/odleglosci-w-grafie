@@ -1,6 +1,9 @@
 import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import Select from '@material-ui/core/Select'
 import IconButton from '@material-ui/core/IconButton'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
 import Typography from '@material-ui/core/Typography'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -11,6 +14,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage'
 
 import Code from './Code'
 import Matrix from './Matrix'
+import EndInfo from './EndInfo'
 import { BFSAlgorythm } from './BFSAlgorythm'
 import useBFSAlgorithm from './useBFSAlgorithm'
 import { Queue, Visited, Distance, Variables } from './Lists'
@@ -24,6 +28,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   navigationIcon: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(0.5),
+      marginLeft: theme.spacing(0.5),
+    },
   },
   main: {
     flex: 1,
@@ -39,18 +47,42 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
+  formControl: {
+    minWidth: theme.spacing(7),
+    marginLeft: theme.spacing(2),
+  },
+  select: {
+    textAlign: 'center',
+  },
+  start: {
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+  },
+  stepsReport: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  largeIcon: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 24,
+    },
+  },
 }))
 
 export default function BFS() {
   const classes = useStyles()
   const {
     step,
+    start,
+    updateStart,
     steps,
     graph,
     nextStep,
     previusStep,
     scrollToEnd,
     currentStep,
+    finishStep,
     correctLoaded,
     scrollToBegining,
   } = useBFSAlgorithm()
@@ -62,6 +94,24 @@ export default function BFS() {
   return (
     <>
       <main className={classes.main}>
+        <div className={classes.start}>
+          <Typography variant="h6">Wierzchołek startowy</Typography>
+
+          <FormControl className={classes.formControl}>
+            <Select
+              value={start}
+              onChange={updateStart}
+              classes={{ root: classes.select }}
+            >
+              {graph.mapNodes((name, index) => (
+                <MenuItem value={index} key={index}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+
         <Queue queue={currentStep.queue} />
         <Visited visited={currentStep.visited} />
         <Distance distances={currentStep.distances} />
@@ -99,6 +149,7 @@ export default function BFS() {
           >
             <ArrowBackIcon
               fontSize="large"
+              classes={{ fontSizeLarge: classes.largeIcon }}
               color={step <= 0 ? 'disabled' : 'primary'}
             />
           </IconButton>
@@ -113,14 +164,23 @@ export default function BFS() {
           >
             <FirstPageIcon
               fontSize="large"
+              classes={{ fontSizeLarge: classes.largeIcon }}
               color={step <= 0 ? 'disabled' : 'primary'}
             />
           </IconButton>
         </div>
 
-        <Typography classes={{ root: classes.step }}>
-          Krok: {step + 1} / {steps}
-        </Typography>
+        <div className={classes.stepsReport}>
+          <EndInfo
+            start={start}
+            end={finishStep}
+            openOnFirst={step + 1 === steps}
+          />
+
+          <Typography classes={{ root: classes.step }}>
+            Krok: {step + 1} / {steps}
+          </Typography>
+        </div>
 
         <div>
           <IconButton
@@ -133,6 +193,7 @@ export default function BFS() {
           >
             <LastPageIcon
               fontSize="large"
+              classes={{ fontSizeLarge: classes.largeIcon }}
               color={step >= steps - 1 ? 'disabled' : 'primary'}
             />
           </IconButton>
@@ -147,6 +208,7 @@ export default function BFS() {
           >
             <ArrowForwardIcon
               fontSize="large"
+              classes={{ fontSizeLarge: classes.largeIcon }}
               color={step >= steps - 1 ? 'disabled' : 'primary'}
             />
           </IconButton>

@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.5),
     paddingLeft: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   empty: {
     fontWeight: 'bold',
@@ -53,7 +53,7 @@ export default function List({ list, title, emptyMessage }: IListProps) {
   const classes = useStyles()
 
   return (
-    <Paper elevation={5} classes={{ root: classes.root }}>
+    <Paper elevation={3} classes={{ root: classes.root }}>
       <Typography classes={{ root: classes.title }}>{title}</Typography>
 
       {list.length === 0 ? (
