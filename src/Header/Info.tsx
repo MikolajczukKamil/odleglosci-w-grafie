@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import Infoicon from '@material-ui/icons/Info'
+import InfoIcon from '@material-ui/icons/Info'
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -34,7 +34,7 @@ export default function Info() {
   return (
     <>
       <IconButton onClick={openDialog} color="inherit" title="Informacje">
-        <Infoicon />
+        <InfoIcon />
       </IconButton>
 
       <Dialog onClose={closeDialog} open={open}>

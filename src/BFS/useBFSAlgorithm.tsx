@@ -5,15 +5,10 @@ import { graphContext } from '../GraphContext'
 import { IStep } from './BFSAlgorythm'
 
 export default function useBFSAlgorithm() {
-  let [algotythm, setAlgorythm] = useState<BFSAlgorythm | null>(null)
-  let [step, setStep] = useState(0)
-  const { graph, isGraphLoaded } = useContext(graphContext)
-
+  const [step, setStep] = useState(0)
   const [start, setStart] = useState(0)
-
-  if (algotythm === null) {
-    setAlgorythm((algotythm = new BFSAlgorythm(graph, start)))
-  }
+  const { graph, isGraphLoaded } = useContext(graphContext)
+  const [algotythm, setAlgorythm] = useState(new BFSAlgorythm(graph, start))
 
   const updateStart = useCallback(
     (event: ChangeEvent<{ value: any }>) => {
@@ -52,12 +47,17 @@ export default function useBFSAlgorithm() {
 
   const steps = algotythm.steps.length
 
+  const finishStep = correctLoaded
+    ? algotythm.steps[algotythm.steps.length - 1]
+    : IStep.Empty
+
   return {
     step,
     steps,
     graph,
     start,
     nextStep,
+    finishStep,
     updateStart,
     previusStep,
     scrollToEnd,
