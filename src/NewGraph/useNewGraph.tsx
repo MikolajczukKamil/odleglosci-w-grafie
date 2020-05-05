@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import { useState, useCallback, ChangeEvent } from 'react'
 
 import parseGraph from './parseGraph'
 import GraphToString from './GraphToString'
@@ -15,21 +15,24 @@ export default function useNewGraph(
   const [textError, setTextError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSelectChange = useCallback((event: React.ChangeEvent<{}>) => {
-    const id: number = (event.target as any).value
+  const handleSelectChange = useCallback(
+    (event: ChangeEvent<{ value: any }>) => {
+      const id: number = parseInt(event.target.value)
 
-    setSelectedDefaultGraph(id)
-    setText(GraphToString(aviableGraphs[id].graph))
-    setTextError(false)
-  }, [])
+      setSelectedDefaultGraph(id)
+      setText(GraphToString(aviableGraphs[id].graph))
+      setTextError(false)
+    },
+    []
+  )
 
   const useDefaultGraph = useCallback(() => {
     addNewGraph(aviableGraphs[selectedDefaultGraph].graph)
   }, [selectedDefaultGraph, addNewGraph])
 
   const handleChange = useCallback(
-    ({ target }: React.ChangeEvent<{}>) => {
-      const content: string = (target as any).value
+    (event: ChangeEvent<{ value: any }>) => {
+      const content: string = event.target.value
 
       if (textError) {
         const err = CheckGraphMatrixStringReprezentation(content)

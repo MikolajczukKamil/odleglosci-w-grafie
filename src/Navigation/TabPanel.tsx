@@ -43,7 +43,7 @@ const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
           fullContent ? (
             children
           ) : (
-            <Box p={3} className={classess.box}>
+            <Box p={2} className={classess.box}>
               {children}
             </Box>
           )

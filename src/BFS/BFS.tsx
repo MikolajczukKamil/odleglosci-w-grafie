@@ -42,14 +42,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  formControl: {},
-  select: {},
+  formControl: {
+    minWidth: theme.spacing(7),
+    marginLeft: theme.spacing(2),
+  },
+  select: {
+    textAlign: 'center',
+  },
+  start: {
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+  },
 }))
 
 export default function BFS() {
   const classes = useStyles()
   const {
     step,
+    start,
+    updateStart,
     steps,
     graph,
     nextStep,
@@ -60,16 +71,6 @@ export default function BFS() {
     scrollToBegining,
   } = useBFSAlgorithm()
 
-  const [start, setStart] = React.useState(0)
-
-  const updateStart = React.useCallback(
-    (event: React.ChangeEvent<{ value: any }>) => {
-      console.log(event.target.value)
-      setStart(parseInt(event.target.value))
-    },
-    []
-  )
-
   if (!correctLoaded) {
     return null
   }
@@ -77,21 +78,23 @@ export default function BFS() {
   return (
     <>
       <main className={classes.main}>
-        <Typography variant="h6">Wybierz wierzchołek startowy</Typography>
-        
-        <FormControl className={classes.formControl}>
-          <Select
-            value={start}
-            onChange={updateStart}
-            classes={{ root: classes.select }}
-          >
-            {graph.mapNodes((name, index) => (
-              <MenuItem value={index} key={index}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <div className={classes.start}>
+          <Typography variant="h6">Wierzchołek startowy</Typography>
+
+          <FormControl className={classes.formControl}>
+            <Select
+              value={start}
+              onChange={updateStart}
+              classes={{ root: classes.select }}
+            >
+              {graph.mapNodes((name, index) => (
+                <MenuItem value={index} key={index}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
 
         <Queue queue={currentStep.queue} />
         <Visited visited={currentStep.visited} />

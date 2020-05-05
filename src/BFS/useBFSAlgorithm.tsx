@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback, ChangeEvent } from 'react'
 
 import { BFSAlgorythm } from './BFSAlgorythm'
 import { graphContext } from '../GraphContext'
@@ -9,9 +9,24 @@ export default function useBFSAlgorithm() {
   let [step, setStep] = useState(0)
   const { graph, isGraphLoaded } = useContext(graphContext)
 
+  const [start, setStart] = useState(0)
+
   if (algotythm === null) {
-    setAlgorythm((algotythm = new BFSAlgorythm(graph, 0)))
+    setAlgorythm((algotythm = new BFSAlgorythm(graph, start)))
   }
+
+  const updateStart = useCallback(
+    (event: ChangeEvent<{ value: any }>) => {
+      const newStart = parseInt(event.target.value)
+
+      if (newStart === start) return
+
+      setStep(0)
+      setStart(newStart)
+      setAlgorythm(new BFSAlgorythm(graph, newStart))
+    },
+    [start, graph]
+  )
 
   const nextStep = useCallback(() => {
     setStep((step) =>
@@ -41,7 +56,9 @@ export default function useBFSAlgorithm() {
     step,
     steps,
     graph,
+    start,
     nextStep,
+    updateStart,
     previusStep,
     scrollToEnd,
     currentStep,

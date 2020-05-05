@@ -14,7 +14,7 @@ import aviableGraphs from './defaultGraphs'
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
     maxWidth: theme.breakpoints.values.md,
-    margin: `${theme.spacing(4)}px auto`,
+    margin: `${theme.spacing(2)}px auto`,
   },
   formControl: {
     marginTop: theme.spacing(2),
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   textField: {
     width: '100%',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
   },
   textArea: {
     minHeight: 200,
