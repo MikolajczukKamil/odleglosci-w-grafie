@@ -23,14 +23,16 @@ export default class Graph {
     )
   }
 
+  public mapNodes<T>(callback: (name: string, index: number) => T) {
+    return this.adjacencyMatrix.map((_, i) =>
+      callback(Graph.fromIndexToName(i), i)
+    )
+  }
+
   public getNodes() {
-    const nodes: Node[] = []
-
-    for (let i = 0; i < this.adjacencyMatrix.length; i++) {
-      nodes.push({ id: i, label: Graph.fromIndexToName(i) })
-    }
-
-    return nodes
+    return this.adjacencyMatrix.map(
+      (_, id) => ({ id, label: Graph.fromIndexToName(id) } as Node)
+    )
   }
 
   public getEdges() {

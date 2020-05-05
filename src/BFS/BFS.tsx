@@ -1,6 +1,9 @@
 import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import Select from '@material-ui/core/Select'
 import IconButton from '@material-ui/core/IconButton'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
 import Typography from '@material-ui/core/Typography'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -39,6 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
+  formControl: {},
+  select: {},
 }))
 
 export default function BFS() {
@@ -55,6 +60,16 @@ export default function BFS() {
     scrollToBegining,
   } = useBFSAlgorithm()
 
+  const [start, setStart] = React.useState(0)
+
+  const updateStart = React.useCallback(
+    (event: React.ChangeEvent<{ value: any }>) => {
+      console.log(event.target.value)
+      setStart(parseInt(event.target.value))
+    },
+    []
+  )
+
   if (!correctLoaded) {
     return null
   }
@@ -62,6 +77,22 @@ export default function BFS() {
   return (
     <>
       <main className={classes.main}>
+        <Typography variant="h6">Wybierz wierzchołek startowy</Typography>
+        
+        <FormControl className={classes.formControl}>
+          <Select
+            value={start}
+            onChange={updateStart}
+            classes={{ root: classes.select }}
+          >
+            {graph.mapNodes((name, index) => (
+              <MenuItem value={index} key={index}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Queue queue={currentStep.queue} />
         <Visited visited={currentStep.visited} />
         <Distance distances={currentStep.distances} />
